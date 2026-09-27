@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY MEDIA LANDSCAPE | BY TRISTEN FEWER</title>
+    
+    <!-- Google Fonts: Inter and Space Grotesk for crisp, modern sans-serif typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        canvas: '#F4F1EA',
+                        canvasDark: '#121212',
+                        ink: '#1A1A1A',
+                        coral: '#E06352',
+                        teal: '#4B8F8C',
+                        tealLight: '#65A8A6',
+                        pink: '#EB6FA1',
+                        yellow: '#D99B00',
+                        yellowLight: '#FFFBEB',
+                        cobalt: '#2B4C7E'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'monospace']
+                    },
+                    boxShadow: {
+                        'bauhaus': '8px 8px 0px #1A1A1A',
+                        'bauhaus-lg': '14px 14px 0px #1A1A1A',
+                        'bauhaus-hover': '12px 12px 0px #1A1A1A, 18px 18px 22px rgba(0,0,0,0.12)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F4F1EA;
+            color: #1A1A1A;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .paper-texture {
+            background-image: radial-gradient(#1a1a1a 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+            opacity: 0.04;
+        }
+
+        .hatch-pattern {
+            background: repeating-linear-gradient(
+                45deg,
+                #1a1a1a,
+                #1a1a1a 1.5px,
+                transparent 1.5px,
+                transparent 8px
+            );
+            opacity: 0.12;
+        }
+
+        /* Dynamic Morph & Card Elevation Transitions */
+        .card-container {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        background-color 0.3s ease,
+                        border-color 0.3s ease;
+            transform-origin: center center;
+            will-change: transform, box-shadow;
+        }
+
+        .expand-content {
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                        opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        margin-top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        @keyframes floatAccents {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(2deg); }
+        }
+
+        .animate-float {
+            animation: floatAccents 6s ease-in-out infinite;
+        }
+
+        /* Dark Mode Swiss Poster Theme thingy */
+        body.dark-mode {
+            background-color: #121212;
+            color: #F4F1EA;
+        }
+        body.dark-mode .paper-texture {
+            background-image: radial-gradient(#ffffff 0.5px, transparent 0.5px);
+            opacity: 0.08;
+        }
+        body.dark-mode .card-bg {
+            background-color: #1B1B1E !important;
+            border-color: #F4F1EA !important;
+            color: #F4F1EA !important;
+        }
+        body.dark-mode .shadow-bauhaus {
+            box-shadow: 8px 8px 0px #F4F1EA !important;
+        }
+        body.dark-mode .shadow-bauhaus-hover {
+            box-shadow: 12px 12px 0px #F4F1EA, 18px 18px 22px rgba(255,255,255,0.08) !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative font-sans overflow-x-hidden selection:bg-coral selection:text-white">
+
+    <div class="fixed inset-0 paper-texture pointer-events-none z-0"></div>
+
+    <!-- Swiss Vertical Background Grid Lines cuz it's cool -->
+    <div id="gridLines" class="fixed inset-0 pointer-events-none z-0 flex justify-between px-6 md:px-16 opacity-20">
+        <div class="w-px h-full bg-ink"></div>
+        <div class="w-px h-full bg-ink hidden sm:block"></div>
+        <div class="w-px h-full bg-ink"></div>
+        <div class="w-px h-full bg-ink hidden md:block"></div>
+        <div class="w-px h-full bg-ink"></div>
+    </div>
+
+    <!-- Side Vertical Typography Badge -->
+    <div class="fixed right-3 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-8 z-10 pointer-events-none opacity-60">
+        <span class="vertical-text text-xs tracking-[0.3em] font-mono uppercase font-bold text-ink">BY: TRISTEN FEWER</span>
+        <div class="w-1.5 h-12 bg-coral"></div>
+        <span class="vertical-text text-[10px] tracking-widest font-mono text-ink">LCM DIGITALS © 2026 (LOOKS COOL HUH?)</span>
+    </div>
+
+    <header class="relative z-10 border-b-2 border-ink bg-canvas/90 backdrop-blur-sm px-6 lg:px-16 py-6 transition-colors duration-400">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                    <span class="inline-block w-4 h-4 bg-coral rounded-full"></span>
+                    <span class="inline-block w-8 h-1 bg-ink"></span>
+                    <span class="font-mono text-xs tracking-widest font-bold uppercase text-ink">BY: TRISTEN FEWER</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-ink uppercase leading-none">
+                    MY MEDIA LANDSCAPE
+                </h1>
+                <p class="font-mono text-xs font-semibold tracking-wider text-ink/70">
+                A PRESENTATION OF HOW LITTLE I GO OUTSIDE AND HOW MUCH I USE MY PHONE, ARRANGED FROM HIGHEST TO LOWEST USAGE.
+                </p>
+            </div>
+
+            <!-- Quick Key Metrics -->
+            <div class="flex flex-wrap items-center gap-4 sm:gap-6 border-t md:border-t-0 md:border-l border-ink pt-4 md:pt-0 md:pl-8">
+                <div>
+                    <span class="block font-mono text-[10px] uppercase text-ink/60">THE GUY WHO DID THIS</span>
+                    <span class="font-mono text-sm font-bold text-ink">TRISTEN FEWER</span>
+                </div>
+                <div class="h-8 w-px bg-ink/20"></div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase text-ink/60">MOST USED</span>
+                    <span class="font-mono text-sm font-bold text-coral">YT MUSIC (~500)</span>
+                </div>
+                <div class="h-8 w-px bg-ink/20"></div>
+                <div>
+                    <span class="block font-mono text-[10px] uppercase text-ink/60">TOTAL ENTRIES</span>
+                    <span class="font-mono text-2xl font-black text-ink">ALOT (14)</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Toolbar & Filter Options -->
+    <section class="relative z-10 border-b border-ink px-6 lg:px-16 py-4 bg-canvas/80">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <!-- Usage Tier Filters -->
+            <div class="flex flex-wrap items-center gap-2" id="filterContainer">
+                <span class="font-mono text-xs uppercase font-bold text-ink/60 mr-2">FILTER:</span>
+                <button data-filter="all" class="filter-btn active bg-ink text-canvas px-3 py-1 font-mono text-xs font-bold border border-ink transition-all">ALL (14)</button>
+                <button data-filter="heavy" class="filter-btn bg-transparent text-ink hover:bg-coral hover:text-white px-3 py-1 font-mono text-xs font-bold border border-ink transition-all">HEAVY (&gt;~50)</button>
+                <button data-filter="active" class="filter-btn bg-transparent text-ink hover:bg-teal hover:text-white px-3 py-1 font-mono text-xs font-bold border border-ink transition-all">ACTIVE (~10-50)</button>
+                <button data-filter="sparse" class="filter-btn bg-transparent text-ink hover:bg-pink hover:text-white px-3 py-1 font-mono text-xs font-bold border border-ink transition-all">SPARSE (&lt;~10)</button>
+            </div>
+
+            <!-- View Toggles -->
+            <div class="flex items-center gap-3">
+                <button id="themeToggleBtn" class="px-3 py-1 font-mono text-xs border border-ink bg-ink text-canvas hover:bg-coral transition-all">
+                    DARK POSTER
+                </button>
+                <button id="soundToggleBtn" class="px-3 py-1 font-mono text-xs border border-ink bg-white/60 hover:bg-white text-ink transition-all">
+                    SOUND: ON
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main class="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 py-10">
+        
+        <!-- Geometric Banner Accent -->
+        <div class="mb-8 p-6 border-2 border-ink bg-white/40 backdrop-blur-md relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 shadow-bauhaus">
+            <div class="hatch-pattern absolute inset-0 pointer-events-none"></div>
+            <div class="relative z-10">
+                <span class="font-mono text-xs text-coral font-bold tracking-widest uppercase">BY TRISTEN FEWER // FREQUENCY ORDERING</span>
+                <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-ink mt-1">Arranged from highest to lowest weekly usage</h2>
+            </div>
+            <div class="relative z-10 flex items-center gap-2">
+                <div class="w-10 h-10 rounded-full border-2 border-ink bg-coral animate-float"></div>
+                <div class="w-8 h-8 border-2 border-ink bg-teal rotate-12"></div>
+                <div class="w-6 h-6 border-2 border-ink bg-yellow rounded-full -ml-3"></div>
+            </div>
+        </div>
+
+        <!-- The Ordered Responsive Grid -->
+        <div id="posterGrid" class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6 items-start">
+            <!-- Cards generated strictly by usage order -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t-2 border-ink mt-20 bg-canvas/90 px-6 lg:px-16 py-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 bg-ink text-canvas font-mono font-bold text-lg flex items-center justify-center border border-ink">
+                    TF
+                </div>
+                <div>
+                    <h3 class="font-bold text-base text-ink">MY MEDIA LANDSCAPE // BY TRISTEN FEWER</h3>
+                    <p class="font-mono text-xs text-ink/60">WORDS LOOK COOL HERE.</p>
+                </div>
+            </div>
+            <div class="font-mono text-xs text-right text-ink/70">
+                <p>CREATED BY TRISTEN FEWER</p>
+                <p class="font-bold text-coral mt-0.5">LCM DIGITALS © 2026 (AGAIN, LOOKS COOL)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Ordering these kinda sucked, idk
+        const APPS_DATA = [
+            {
+                rank: 1,
+                id: "ytmusic",
+                name: "YT Music",
+                category: "AUDIO STREAMING",
+                count: 500,
+                countText: "~500 Opens",
+                quote: "YT Music is something I use every hour of every day, with an estimated ~500 times opened throughout the week. It's use is the main help for all my daily work with how it can improve my focus.",
+                color: "#E06352", // salmon but less cool
+                bgAccent: "#FCE8E5",
+                accentShape: "circle-large",
+                tier: "heavy",
+                colSpan: "lg:col-span-8 col-span-12",
+                textSize: "text-4xl sm:text-6xl",
+                code: "01 / AUD"
+            },
+            {
+                rank: 2,
+                id: "snapchat",
+                name: "Snapchat",
+                category: "SOCIAL MEDIA",
+                count: 450,
+                countText: "~450 Opens",
+                quote: "I use Snapchat quite a bit, opening it roughly ~450 times this week. It's a great way to connect to friends and expand LCM Digitals.",
+                color: "#D99B00", // and it was all yelowwwww
+                bgAccent: "#FFFBEB", 
+                accentShape: "arc-corner",
+                tier: "heavy",
+                colSpan: "lg:col-span-6 col-span-12",
+                textSize: "text-xl",
+                code: "02 / SNA"
+            },
+            {
+                rank: 3,
+                id: "tiktok",
+                name: "TikTok",
+                category: "BRAND MANAGEMENT",
+                count: 200,
+                countText: "~100-250 Times",
+                quote: "I've used TikTok a total of ~100-250 times within the past week due to the management of my LCM Digitals account. It serves as a tool for tracking creative trends and expanding my community.",
+                color: "#EB6FA1", // Pink barbie magenta
+                bgAccent: "#FDF0F5",
+                accentShape: "lines-hatched",
+                tier: "heavy",
+                colSpan: "lg:col-span-4 col-span-12",
+                textSize: "text-3xl sm:text-4xl",
+                code: "03 / LCM"
+            },
+            {
+                rank: 4,
+                id: "stratahammer",
+                name: "Strata Hammer",
+                category: "GAME ENGINE DEV",
+                count: 80,
+                countText: "~80 Launches",
+                quote: "Strata Hammer is a game development engine based off of the engine used for the \"Quake\" games and was originally called \"Worldcraft\". I've launched and built with it around ~80 times this past week.",
+                color: "#1A1A1A", // idk, black is a good color for dev, and it contrasts well with the other colors
+                bgAccent: "#F0EFEA",
+                accentShape: "grid-lines",
+                tier: "heavy",
+                colSpan: "lg:col-span-6 col-span-12",
+                textSize: "text-2xl sm:text-3xl",
+                code: "04 / DEV"
+            },
+            {
+                rank: 5,
+                id: "steam",
+                name: "Steam",
+                category: "GAME LAUNCHER",
+                count: 50,
+                countText: "~50 Uses",
+                quote: "I've used the Steam game launcher ~50 times this week for video games and development tools. I mainly use it to launch my favorite games, or kick back for some time to develop.",
+                color: "#4B8F8C", // Teal part 1
+                bgAccent: "#EBF5F4",
+                accentShape: "square-solid",
+                tier: "active",
+                colSpan: "lg:col-span-6 col-span-12",
+                textSize: "text-2xl sm:text-3xl",
+                code: "05 / GME"
+            },
+            {
+                rank: 6,
+                id: "messages",
+                name: "Google messages",
+                category: "COMMUNICATION",
+                count: 50,
+                countText: "~50 Texts",
+                quote: "I used Google Messages often, about ~50 times or so to text people who do not have access to social media. Furthermore, It serves as a way to contact people if my data is out.",
+                color: "#2B4C7E", // Cobalt blue is my favorite blue, its also google's so idk
+                bgAccent: "#EEF3FA",
+                accentShape: "cross-grid",
+                tier: "active",
+                colSpan: "lg:col-span-4 col-span-12",
+                textSize: "text-2xl sm:text-3xl",
+                code: "06 / MSG"
+            },
+            {
+                rank: 7,
+                id: "youtube",
+                name: "YouTube",
+                category: "VIDEO / LCM MGMT",
+                count: 35,
+                countText: "~35 Videos",
+                quote: "I've used YouTube every day, with an estimate of ~5 videos per day along with managing LCM Digitals on YouTube. It balances video uploading with media consumption.",
+                color: "#E06352", // Coral reefs are beautiful, thats why its coral color
+                bgAccent: "#FCE8E5",
+                accentShape: "triangle",
+                tier: "active",
+                colSpan: "lg:col-span-4 col-span-12",
+                textSize: "text-2xl sm:text-3xl",
+                code: "07 / VID"
+            },
+            {
+                rank: 8,
+                id: "gemini",
+                name: "Gemini",
+                category: "LOCAL AI ENGINE",
+                count: 30,
+                countText: "~30 Local Runs",
+                quote: "I use Gemini locally, I do not use cloud based AI due to ethical reasons. I mainly run it locally off of my computer and stream it to my phone, having used it at least ~30 different times this week.",
+                color: "#65A8A6", // teal part 2
+                bgAccent: "#EEF8F8",
+                accentShape: "diamond",
+                tier: "active",
+                colSpan: "lg:col-span-4 col-span-12",
+                textSize: "text-2xl sm:text-3xl",
+                code: "08 / LAI"
+            },
+            {
+                rank: 9,
+                id: "instagram",
+                name: "Instagram",
+                category: "SOCIAL REELS",
+                count: 20,
+                countText: "~20 Reels",
+                quote: "I have scrolled through Instagram reels about every day, assuming around ~20 times this week. It can be a bit of a palette cleanser from other social media platforms.",
+                color: "#EB6FA1", // It's like barbie but not really, it's more like a pinkish magenta
+                bgAccent: "#FDF0F5",
+                accentShape: "circle-hollow",
+                tier: "active",
+                colSpan: "lg:col-span-6 col-span-12",
+                textSize: "text-xl sm:text-2xl",
+                code: "09 / INS"
+            },
+            {
+                rank: 10,
+                id: "netflix",
+                name: "Netflix",
+                category: "ENTERTAINMENT",
+                count: 8,
+                countText: "~8 Streams",
+                quote: "I've been watching \"Space Force\" all week, with a total of ~8 times used throughout the week. It has been my new comfort show for when I just need to relax.",
+                color: "#E06352",
+                bgAccent: "#FCE8E5",
+                accentShape: "bar-horizontal",
+                tier: "sparse",
+                colSpan: "lg:col-span-6 col-span-12",
+                textSize: "text-xl sm:text-2xl",
+                code: "10 / STR"
+            },
+            {
+                rank: 11,
+                id: "roblox",
+                name: "Roblox",
+                category: "GAMING",
+                count: 7,
+                countText: "~7 Plays",
+                quote: "I've played Roblox about every day for the past week, coming out to around ~7 times total. It's one of the ways me and my brother spend time together.",
+                color: "#D99B00", // and it was all yelowwwww
+                bgAccent: "#FFFBEB",
+                accentShape: "square-outline",
+                tier: "sparse",
+                colSpan: "lg:col-span-4 col-span-12",
+                textSize: "text-xl sm:text-2xl",
+                code: "11 / GME"
+            },
+            {
+                rank: 12,
+                id: "facebook",
+                name: "Facebook",
+                category: "SOCIAL / IRONIC",
+                count: 4,
+                countText: "~4 Opens",
+                quote: "I've opened Facebook ~4 times, all out of irony and jokes. I rarely spend serious time on the app.",
+                color: "#2B4C7E",
+                bgAccent: "#EEF3FA",
+                accentShape: "slash-accent",
+                tier: "sparse",
+                colSpan: "lg:col-span-4 col-span-12",
+                textSize: "text-xl",
+                code: "12 / SOC"
+            },
+            {
+                rank: 13,
+                id: "pinterest",
+                name: "Pinterest",
+                category: "INSPIRATION",
+                count: 3,
+                countText: "~3 Inspo Checks",
+                quote: "I used Pinterest in a sparse way, around ~3 times for inspiration. It serves as a quick source of ideas.",
+                color: "#EB6FA1",
+                bgAccent: "#FDF0F5",
+                accentShape: "dots-trio",
+                tier: "sparse",
+                colSpan: "lg:col-span-4 col-span-12",
+                textSize: "text-xl",
+                code: "13 / PIN"
+            },
+            {
+                rank: 14,
+                id: "reddit",
+                name: "Reddit",
+                category: "HARDWARE FIX",
+                count: 2,
+                countText: "~2 Troubleshoots",
+                quote: "I used Reddit a total of ~2 times, both for troubleshooting hardware issues. It usually has the first answer for very niche questions or hardware/software problems.",
+                color: "#D99B00", // and it was all yelowwwww
+                bgAccent: "#FFFBEB", 
+                accentShape: "arc-corner",
+                tier: "sparse",
+                colSpan: "lg:col-span-6 col-span-12",
+                textSize: "text-xl",
+                code: "14 / SUP"
+            },
+            {
+                rank: 15,
+                id: "movies",
+                name: "Movies",
+                category: "CINEMA",
+                count: 1,
+                countText: "~1 View",
+                quote: "I've watched \"Project Hail Mary\" a total of ~1 time this week. My absolute favorite movie of the year.",
+                color: "#4B8F8C",
+                bgAccent: "#EBF5F4",
+                accentShape: "dot-single",
+                tier: "sparse",
+                colSpan: "lg:col-span-6 col-span-12",
+                textSize: "text-xl",
+                code: "15 / MOV"
+            }
+        ];
+
+        let soundEnabled = true;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playTactileSound(freq = 440, type = 'sine', duration = 0.08) {
+            if (!soundEnabled) return;
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                // Browser audio fallback, cuz why not, right? Some browsers are weird about audio contexts.
+            }
+        }
+
+        function renderAccentGraphic(shape, color) {
+            switch(shape) {
+                case 'circle-large':
+                    return `<div class="w-16 h-16 rounded-full border-2 border-ink absolute -right-4 -top-4 pointer-events-none flex items-center justify-center">
+                                <div class="w-8 h-8 rounded-full border border-ink" style="background-color: ${color}"></div>
+                            </div>`;
+                case 'lines-hatched':
+                    return `<div class="w-14 h-14 hatch-pattern border border-ink absolute right-4 top-4 pointer-events-none"></div>`;
+                case 'square-solid':
+                    return `<div class="w-7 h-7 border-2 border-ink absolute right-4 top-4 pointer-events-none" style="background-color: ${color}"></div>`;
+                case 'cross-grid':
+                    return `<div class="absolute right-4 top-4 flex gap-1 pointer-events-none">
+                                <div class="w-3 h-3 bg-ink"></div>
+                                <div class="w-3 h-3 border border-ink" style="background-color: ${color}"></div>
+                            </div>`;
+                case 'triangle':
+                    return `<div class="w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[18px] border-b-ink absolute right-4 top-4 pointer-events-none"></div>`;
+                case 'diamond':
+                    return `<div class="w-5 h-5 rotate-45 border-2 border-ink absolute right-4 top-4 pointer-events-none" style="background-color: ${color}"></div>`;
+                default:
+                    return `<div class="w-3 h-3 rounded-full border border-ink absolute right-4 top-4 pointer-events-none" style="background-color: ${color}"></div>`;
+            }
+        }
+
+        function renderCards(filter = 'all') {
+            const grid = document.getElementById('posterGrid');
+            grid.innerHTML = '';
+
+            // Ensure dataset stays sorted by rank/count descending, didn't have this before and it was a mess, hated that.
+            const sortedData = [...APPS_DATA].sort((a, b) => b.count - a.count);
+
+            const filteredData = sortedData.filter(item => {
+                if (filter === 'all') return true;
+                return item.tier === filter;
+            });
+
+            filteredData.forEach(app => {
+                const card = document.createElement('article');
+                card.id = `card-${app.id}`;
+                card.dataset.id = app.id;
+                card.className = `${app.colSpan} card-container card-bg relative bg-white border-2 border-ink p-5 sm:p-7 cursor-pointer shadow-bauhaus hover:shadow-bauhaus-hover hover:-translate-y-2 select-none overflow-hidden`;
+
+                const barWidth = Math.min(100, Math.max(8, Math.round((app.count / 500) * 100)));
+
+                card.innerHTML = `
+                    <!-- Top Bar: Rank Code & Category -->
+                    <div class="flex items-center justify-between border-b border-ink/20 pb-3 mb-3">
+                        <span class="font-mono text-xs font-bold tracking-widest text-ink/60 uppercase">RANK #${app.rank} // ${app.code}</span>
+                        <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 border border-ink font-bold" style="background-color: ${app.bgAccent}; color: ${app.color === '#1A1A1A' ? '#1A1A1A' : app.color}">
+                            ${app.category}
+                        </span>
+                    </div>
+
+                    <!-- Shape Graphic -->
+                    ${renderAccentGraphic(app.accentShape, app.color)}
+
+                    <!-- App Title Word -->
+                    <div class="relative z-10 my-2">
+                        <h3 class="${app.textSize} font-extrabold tracking-tight text-ink uppercase leading-none">
+                            ${app.name}
+                        </h3>
+                    </div>
+
+                    <!-- Usage Weight Bar & Count Badge -->
+                    <div class="mt-4 pt-2 flex items-center justify-between gap-4">
+                        <div class="flex-1 bg-ink/10 h-2 border border-ink/30 relative overflow-hidden">
+                            <div class="h-full transition-all duration-700" style="width: ${barWidth}%; background-color: ${app.color}"></div>
+                        </div>
+                        <span class="font-mono text-xs font-bold tracking-wider text-ink bg-canvas px-2 py-0.5 border border-ink">
+                            ${app.countText}
+                        </span>
+                    </div>
+
+                    <!-- Expandable 2-Sentence Blockquote -->
+                    <div id="expand-${app.id}" class="expand-content max-h-0 opacity-0 overflow-hidden text-ink">
+                        <div class="pt-5 mt-4 border-t-2 border-ink relative">
+                            <div class="flex items-start gap-2.5">
+                                <span class="text-3xl font-extrabold leading-none -mt-1" style="color: ${app.color === '#1A1A1A' ? '#E06352' : app.color}">“</span>
+                                <div>
+                                    <blockquote class="text-base sm:text-lg font-medium text-ink leading-relaxed">
+                                        ${app.quote}
+                                    </blockquote>
+                                    <div class="mt-3 flex items-center justify-between gap-2 border-t border-ink/10 pt-2">
+                                        <div class="flex items-center gap-2">
+                                            <span class="w-2 h-2 rounded-full border border-ink" style="background-color: ${app.color}"></span>
+                                            <span class="font-mono text-[10px] font-bold text-ink/70 uppercase tracking-widest">
+                                                WORDS LOOK COOL HERE :)
+                                            </span>
+                                        </div>
+                                        <span class="font-mono text-[10px] font-bold text-coral uppercase tracking-widest">
+                                            ${app.countText}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 flex items-center justify-end gap-1 font-mono text-[10px] text-ink/50 uppercase tracking-widest">
+                                <span>Leave card to collapse</span>
+                                <span class="inline-block animate-bounce">↑</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Trigger Hint -->
+                    <div id="hint-${app.id}" class="mt-3 flex items-center justify-between font-mono text-[11px] font-semibold text-ink/60 hover:text-coral transition-colors">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full inline-block" style="background-color: ${app.color}"></span>
+                            <span>Click word to expand statement</span>
+                        </div>
+                        <span class="text-[10px] text-ink/40">TRISTEN FEWER</span>
+                    </div>
+                `;
+
+                // Interactive Click & Mouseleave morph rules, but rules were meant to be broken, so I broke them. Now they are rules that can be bent, but not broken. I think.
+                card.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    expandCard(app.id, app.color);
+                    playTactileSound(540, 'sine', 0.1);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    collapseCard(app.id);
+                });
+
+                card.addEventListener('mouseenter', () => {
+                    playTactileSound(300, 'triangle', 0.04);
+                });
+
+                grid.appendChild(card);
+            });
+        }
+
+        function expandCard(id, color) {
+            const expandBox = document.getElementById(`expand-${id}`);
+            const hintBox = document.getElementById(`hint-${id}`);
+            const card = document.getElementById(`card-${id}`);
+
+            if (expandBox) {
+                expandBox.classList.remove('max-h-0', 'opacity-0');
+                expandBox.classList.add('max-h-96', 'opacity-100');
+            }
+            if (hintBox) {
+                hintBox.classList.add('hidden');
+            }
+            if (card) {
+                card.style.borderColor = color === '#1A1A1A' ? '#1A1A1A' : color;
+            }
+        }
+
+        function collapseCard(id) {
+            const expandBox = document.getElementById(`expand-${id}`);
+            const hintBox = document.getElementById(`hint-${id}`);
+            const card = document.getElementById(`card-${id}`);
+
+            if (expandBox && !expandBox.classList.contains('max-h-0')) {
+                expandBox.classList.remove('max-h-96', 'opacity-100');
+                expandBox.classList.add('max-h-0', 'opacity-0');
+                playTactileSound(260, 'sine', 0.06);
+            }
+            if (hintBox) {
+                hintBox.classList.remove('hidden');
+            }
+            if (card) {
+                card.style.borderColor = '#1A1A1A';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCards('all');
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-ink', 'text-canvas');
+                        b.classList.add('bg-transparent', 'text-ink');
+                    });
+                    e.target.classList.add('active', 'bg-ink', 'text-canvas');
+                    e.target.classList.remove('bg-transparent', 'text-ink');
+
+                    const filterValue = e.target.dataset.filter;
+                    renderCards(filterValue);
+                    playTactileSound(450, 'square', 0.05);
+                });
+            });
+
+            // Dark Poster Toggle that opera was being weird about cuz it forces dark mode on by default, so I had to make a toggle for it. Opera is weird. also text doesn't change on dark :(
+            const themeBtn = document.getElementById('themeToggleBtn');
+            let darkMode = false;
+
+            themeBtn.addEventListener('click', () => {
+                darkMode = !darkMode;
+                document.body.classList.toggle('dark-mode', darkMode);
+                themeBtn.textContent = darkMode ? 'LIGHT POSTER' : 'DARK POSTER';
+                playTactileSound(580, 'triangle', 0.08);
+            });
+
+            // Sound Toggle, this is an english project so I had to make sure it was accessible for everyone, even if they don't have sound. I also made it so that the sound toggle is persistent across the site, so you can turn it off and on as you please.
+            const soundBtn = document.getElementById('soundToggleBtn');
+            soundBtn.addEventListener('click', () => {
+                soundEnabled = !soundEnabled;
+                soundBtn.textContent = `SOUND: ${soundEnabled ? 'ON' : 'OFF'}`;
+            });
+        });
+    </script>
+</body>
+</html>
